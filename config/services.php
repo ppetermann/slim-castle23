@@ -1,5 +1,5 @@
 <?php
-$container = new \King23\DI\DependencyContainer();
+$container = new \Castle23\Slim\CompatibilityContainer();
 
 // ensure we have an APP_PATH (optional)
 if (!defined("APP_PATH")) {
@@ -19,7 +19,10 @@ require_once APP_PATH."/vendor/king23/castle23/config/services/settings.php";
 // the here we configure the http services, so it loads slim as a middleware
 require_once APP_PATH."/config/services/http.php";
 
-// and the file where we actually create the slim instance
+// add the defaults to the DI container
 require_once APP_PATH."/config/services/slim.php";
+
+// and the file where we actually create the slim instance
+require_once APP_PATH."/config/services/slim-app.php";
 
 return $container;

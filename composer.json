@@ -26,6 +26,12 @@
         "devedge/stubs": "~2.0"
     },
 
+    "autoload": {
+        "psr-4": {
+            "Castle23\\Slim\\": "src/"
+        }
+    },
+
     "bin": [
         "bin/slim-castle23"
     ]
