@@ -1,0 +1,32 @@
+<?php
+# This file is the script which you call from the command line
+# there shouldn't be too much that needs changing here
+
+// composer autoload file
+require_once __DIR__ ."/../vendor/autoload.php";
+
+// as castle23 is dependend on the king23 framework, we have to do
+// a bit of king23 / knight23 stuff here
+
+// load the king23 DI container
+/** @var \King23\DI\DependencyContainer $container */
+$container = require_once __DIR__ ."/../config/services.php";
+
+// the knight23 runner used for castle23
+/** @var \Knight23\Core\Knight23 $knight23 */
+$knight23 = $container->getInstanceOf(\Knight23\Core\RunnerInterface::class);
+
+// set package name and version for self-updater etc.
+$knight23->setPackage("king23/slim-castle23");
+$knight23->setVersion("0.0.0"); // Hint: I wouldn't update this manually (rmt is doing it for me)
+
+// add commands
+
+// if we create a runable phar of our app, then this can be useful..
+// $knight23->addCommand(\Knight23\Core\Command\SelfUpdateCommand::class);
+
+// register the serve command
+$knight23->addCommand(\Castle23\Command\Serve::class);
+
+// <picard-voice>Engage!</picard-voice>
+$knight23->run($argc, $argv);
