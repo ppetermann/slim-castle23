@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "344541c0217f2f0ec791749db446602d",
+    "hash": "8eb52a0c462935a4326406e915d84d3e",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -1227,16 +1227,16 @@
         },
         {
             "name": "slim/slim",
-            "version": "3.0.0-beta2",
+            "version": "3.0.0-RC1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim.git",
-                "reference": "7c6134467a34ee6d481ccdc9c6efe34049f95819"
+                "reference": "d4ac4db27348eea2c3ba305c8b49028583600d3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim/zipball/7c6134467a34ee6d481ccdc9c6efe34049f95819",
-                "reference": "7c6134467a34ee6d481ccdc9c6efe34049f95819",
+                "url": "https://api.github.com/repos/slimphp/Slim/zipball/d4ac4db27348eea2c3ba305c8b49028583600d3a",
+                "reference": "d4ac4db27348eea2c3ba305c8b49028583600d3a",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1289,7 @@
                 "micro",
                 "router"
             ],
-            "time": "2015-08-10 15:29:12"
+            "time": "2015-09-07 20:13:22"
         },
         {
             "name": "symfony/finder",
@@ -2409,7 +2409,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "king23/king23": 15,
-        "slim/slim": 10,
+        "slim/slim": 5,
         "knight23/core": 20
     },
     "prefer-stable": false,
