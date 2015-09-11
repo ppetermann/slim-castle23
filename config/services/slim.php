@@ -4,25 +4,10 @@
  * as long as you don't want to change those defaults, you shouldn't need to touch this.
  */
 
-
-$container->register(
-    'notFoundHandler',
-    function () {
-        return
-            function ($request, $response) {
-                /** @var Psr\Http\Message\ResponseInterface $response */
-
-                // we return a 404 error
-                return $response->withStatus(404);
-            };
-    }
-);
-
-// @todo integrate with King23 Settings
 $container->register(
     'settings',
     function () {
-        return [
+        $default = [
             'cookieLifetime' => '20 minutes',
             'cookiePath' => '/',
             'cookieDomain' => null,
@@ -31,59 +16,73 @@ $container->register(
             'httpVersion' => '1.1',
             'responseChunkSize' => 4096,
             'outputBuffering' => 'append',
+            'determineRouteBeforeAppMiddleware' => false
         ];
+
+        //$settings = require 'settings.php';
+        $settings = [];
+        return array_merge($default, $settings);
     }
 );
-
 $container->register(
     'environment',
     function () {
-        return new \Slim\Http\Environment([]);
+        return new \Slim\Http\Environment($_SERVER);
     }
 );
 
-
-// hopefully those are never used, but the ones from the middleware
 $container->registerFactory('response',
-    function ($c) {
+    function () use ($container) {
         $headers = new \Slim\Http\Headers(['Content-Type' => 'text/html']);
         $response = new \Slim\Http\Response(200, $headers);
-        return $response->withProtocolVersion($c['settings']['httpVersion']);
+        return $response->withProtocolVersion($container->get('settings')['httpVersion']);
     }
 );
 
-// hopefully those are never used, but the ones from the middleware
 $container->registerFactory(
     'request',
-    function () use($container) {
+    function () use ($container) {
         return \Slim\Http\Request::createFromEnvironment($container->get('environment'));
     }
 );
-
 $container->register(
     'router',
     function () {
         return new \Slim\Router();
     }
 );
-
 $container->register(
     'errorHandler',
     function () {
         return new \Slim\Handlers\Error();
     }
 );
-
 $container->register(
     'notAllowedHandler',
-    function() {
+    function () {
         return new \Slim\Handlers\NotAllowed();
+    }
+);
+
+$container->register(
+    'notFoundHandler',
+    function () {
+        return new \Slim\Handlers\NotFound();
+    }
+);
+
+$container->register(
+    'foundHandler',
+    function() {
+        return new \Slim\Handlers\Strategies\RequestResponse();
     }
 );
 
 $container->registerFactory(
     'callableResolver',
-    function () use($container) {
+    function () use ($container) {
         return new \Slim\CallableResolver($container);
     }
 );
+
+return $container;

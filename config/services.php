@@ -1,5 +1,5 @@
 <?php
-$container = new \Castle23\Slim\CompatibilityContainer();
+$container = new \King23\DI\Interop\InteropContainer();
 
 // ensure we have an APP_PATH (optional)
 if (!defined("APP_PATH")) {
